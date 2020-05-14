@@ -33,6 +33,22 @@ const routes = [{
         // which is lazy-loaded when the route is visited.
         component: () =>
             import ( /* webpackChunkName: "about" */ '../views/register.vue')
+    }, {
+        path: '/content',
+        name: 'content',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../views/content.vue')
+    }, , {
+        path: '/page_content',
+        name: 'page_content',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../components/page_one.vue')
     }
 ]
 
@@ -41,5 +57,15 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 })
+
+
+router.onError((error) => {
+    const pattern = /Loading chunk (\d)+ failed/g;
+    const isChunkLoadFailed = error.message.match(pattern);
+    const targetPath = router.history.pending.fullPath;
+    if (isChunkLoadFailed) {
+        router.replace(targetPath);
+    }
+});
 
 export default router

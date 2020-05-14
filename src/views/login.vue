@@ -1,13 +1,13 @@
 <template>
-  <div class="login">
+  <div class="loginE">
 
     <div class="grid-content bg-purple">
-      <h2>用户登录</h2>
+      <h2>登录</h2>
       <el-form
         :model="ruleForm"
         status-icon
         :rules="rules"
-        label-position="right"
+        label-position="left"
         ref="ruleForm"
         label-width="68px"
         class="demo-ruleForm"
@@ -16,7 +16,10 @@
           label="用户名"
           prop="user"
         >
-          <el-input v-model="ruleForm.user"></el-input>
+          <el-input
+            v-model="ruleForm.user"
+            placeholder="请输入用户名"
+          ></el-input>
         </el-form-item>
         <el-form-item
           label="密码"
@@ -24,36 +27,33 @@
         >
           <el-input
             type="password"
+            placeholder="请输入密码"
             v-model="ruleForm.pass"
             autocomplete="off"
           ></el-input>
         </el-form-item>
 
+        <el-form-item>
+
+          <el-button
+            type="primary"
+            class="loginG"
+            @click="submitForm('ruleForm')"
+            style="width:100%;"
+          >登录</el-button>
+
+        </el-form-item>
         <el-form-item class="clearBottom">
-          <el-row class="loginB"  >
-            <a
-              href=""
-              
-            >忘记密码</a>
+          <el-row class="loginB">
+            <a href="">忘记密码</a>
 
             <router-link
               to="/register"
-              
               @click="doRegister()"
             >用户注册</router-link>
 
           </el-row>
         </el-form-item>
-
-        <el-form-item>
-          <el-button
-            class="loginG"
-            type="primary"
-            @click="submitForm('ruleForm')"
-          >提交</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
-        </el-form-item>
-
       </el-form>
     </div>
 
@@ -96,15 +96,34 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          // alert("submit!");
+          let that = this;
+          that.$http.post("/api/login", {
+              username: that.ruleForm.user,
+              password: that.ruleForm.pass
+            })
+            .then(function(response) {
+              console.log(response.data);
+              if (parseInt(response.data.code) === 400) {
+                // 登录失败
+                that.username = "";
+                that.password = "";
+              } else if (parseInt(response.data.code) === 200) {
+                // 存token
+                sessionStorage.setItem("token", response.data.token);
+                let flag = true;
+                that.$store.dispatch("login", flag);
+                that.$router.push("/");
+              }
+            })
+            .catch(function(error) {
+              console.log("", error);
+            });
         } else {
           console.log("error submit!!");
           return false;
         }
       });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
     },
 
     doRegister() {
@@ -116,21 +135,23 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 html {
   height: 100%;
 }
 body {
-  //   padding: 0;margin: 0;
+  padding: 0;
+  margin: 0;
   //   height:100%;
   //   display: flex;
   //   align-items: center;
   // justify-content: center;
 }
-.login {
+.loginE {
   height: 100%;
   max-width: 380px;
   margin: 160px auto;
+  padding: 15px;
   //  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 }
 .grid-content {
@@ -138,7 +159,6 @@ body {
   // width:380px;
 }
 h2 {
-  color: #409eff;
   margin: 0 0 24px 68px;
 }
 
@@ -149,6 +169,7 @@ h2 {
   .grid-content {
     text-align: center;
     width: 300px;
+    margin: 0 auto;
   }
 }
 
@@ -157,31 +178,27 @@ h2 {
 }
 .loginG {
   margin: auto;
-
-
 }
 
-
-a  {
-      color: #1ab2ff;
+a {
+  color: #1ab2ff;
   text-decoration: none;
 }
-  .loginB {
-    float: right;
-    margin-top: -17px;
-margin-bottom:17px ;
-    font-size: 14px;
-    line-height: 22px;
-    color: #1ab2ff;
-    cursor: pointer;  
-  }
+.loginB {
+  float: right;
+  margin-top: -17px;
+  margin-bottom: 17px;
+  font-size: 14px;
+  line-height: 22px;
+  color: #1ab2ff;
+  cursor: pointer;
+}
 
-
-    .loginB a {
-      margin: 3px;
-  }
-  .loginB a:hover {
-    text-decoration: none;
+.loginB a {
+  margin: 3px;
+}
+.loginB a:hover {
+  text-decoration: none;
   color: #2c2fd6;
 }
-  </style>
+</style>
