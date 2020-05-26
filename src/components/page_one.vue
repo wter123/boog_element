@@ -1,24 +1,29 @@
 <template>
 
-    <div id="aa">
-        <transition name="fade">
-            <div v-if="show">hello world</div>
-        </transition>
-        <button @click="handleClick">切换</button>
-    </div>
- 
+  <div id="aa">
+    aa{{sex}}
+  </div>
 
-</body>
-</template>    <script>
-  export default{
-            data() {return{
-                show: true
-            }},
-            methods: {
-                handleClick: function () {
-                    this.show = (this.show === true ? false : true)
-                }
-            }
-         }
-    </script>
+</template>    
+<script>
+import { mapState } from "vuex";
+
+export default {
+  computed: {
+    ...mapState({
+      routerActiveE: state => state.backstageLocal.routerActive
+    })
+  },
+  methods: {
+    handClick(tab) {
+      this.$store.commit("routerActive", tab.name);
+    }
+  },
+  watch: {
+    routerActiveE: function() {
+      console.log(this.routerActiveE);
+    }
+  }
+};
+</script>
  

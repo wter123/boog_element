@@ -13,7 +13,7 @@
           router
         >
           <div
-            style="height:400px;width:250px"
+            style=" width:250px"
             class="ala"
           >
             <el-scrollbar style="height:100%;width:100%;">
@@ -75,8 +75,11 @@
                   <i class="el-icon-document"></i>
                   <span slot="title">注册</span>
                 </el-menu-item>
-                <el-menu-item index="/Home">
-                  <i class="el-icon-setting"></i>
+                <el-menu-item index="/"
+                    @click="exit">
+                  <i
+                    class="el-icon-setting"
+                  ></i>
                   <span slot="title">退出</span>
                 </el-menu-item>
               </div>
@@ -97,8 +100,7 @@
   </div>
 </template>
 
-<script> 
-
+<script>
 export default {
   data() {
     return {
@@ -112,6 +114,13 @@ export default {
     console.log("avs");
   },
   methods: {
+    exit: function() {
+      console.log(this.$store.state.islogin);
+      let flag = false;
+      this.$store.dispatch("login", flag);
+      this.$router.go(0)
+      console.log("退出登录");
+    },
     timeout() {
       setTimeout(function() {
         document.querySelector(".leftSidebar").style.zIndex = 0;
@@ -187,6 +196,7 @@ export default {
 <style lang="less" scoped>
 .leftSidebar {
   position: fixed;
+  top:0;
   // float: left;
   max-width: 500px;
   margin-top: 0px;
@@ -234,7 +244,7 @@ export default {
 }
 
 @media screen and(max-width: 500px) {
-  .leftSidebar{
+  .leftSidebar {
     display: none;
   }
   .leftSidebar {

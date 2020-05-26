@@ -3,7 +3,7 @@
     <!-- 头部 -->
     <topSidebar  />
     <!-- 左侧 -->
-    <leftSidebar />
+    <leftSidebar v-if="this.$store.state.loginVuex.islogin" />
     <!-- 内容 -->
     <div class="homeContent">
       <!-- 内容左侧 -->

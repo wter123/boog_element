@@ -98,7 +98,8 @@ export default {
         if (valid) {
           // alert("submit!");
           let that = this;
-          that.$http.post("/api/login", {
+          that.$http
+            .post("/api/login", {
               username: that.ruleForm.user,
               password: that.ruleForm.pass
             })
@@ -108,6 +109,10 @@ export default {
                 // 登录失败
                 that.username = "";
                 that.password = "";
+                that.$message({
+                  showClose: true,
+                  message: "账号密码错误"
+                });
               } else if (parseInt(response.data.code) === 200) {
                 // 存token
                 sessionStorage.setItem("token", response.data.token);

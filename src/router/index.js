@@ -50,6 +50,93 @@ const routes = [{
         component: () =>
             import ( /* webpackChunkName: "about" */ '../components/page_one.vue')
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 后台
+    , {
+        path: '/backstage/Home',
+        name: 'backstage/Home',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../components/backstage/views/Home.vue'),
+        children: [{
+
+                path: 'addArticle',
+                name: 'addArticle',
+                // route level code-splitting
+                // this generates a separate chunk (about.[hash].js) for this route
+                // which is lazy-loaded when the route is visited.
+                component: () =>
+                    import ( /* webpackChunkName: "about" */ '@/components/backstage/components/addArticle.vue')
+
+            }, {
+
+                path: 'draft',
+                name: '/backstage/Home/draft',
+                // route level code-splitting
+                // this generates a separate chunk (about.[hash].js) for this route
+                // which is lazy-loaded when the route is visited.
+                component: () =>
+                    import ( /* webpackChunkName: "about" */ '@/components/backstage/components/draft.vue')
+
+            }, {
+
+                path: 'pageArticle',
+                name: '/backstage/Home/pageArticle',
+                // route level code-splitting
+                // this generates a separate chunk (about.[hash].js) for this route
+                // which is lazy-loaded when the route is visited.
+                component: () =>
+                    import ( /* webpackChunkName: "about" */ '@/components/backstage/components/pageArticle.vue')
+
+            }, {
+
+                path: 'log',
+                name: '/backstage/Home/log',
+                // route level code-splitting
+                // this generates a separate chunk (about.[hash].js) for this route
+                // which is lazy-loaded when the route is visited.
+                component: () =>
+                    import ( /* webpackChunkName: "about" */ '@/components/backstage/components/log.vue')
+
+            }, {
+
+                path: 'comment',
+                name: '/backstage/Home/comment',
+                // route level code-splitting
+                // this generates a separate chunk (about.[hash].js) for this route
+                // which is lazy-loaded when the route is visited.
+                component: () =>
+                    import ( /* webpackChunkName: "about" */ '@/components/backstage/components/comment.vue')
+
+            }
+
+        ]
+    }
+    // ,  
+    , {
+        path: '/backstage/addArticle',
+        name: 'backstage/addArticle',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '@/components/backstage/components/addArticle.vue')
+    }
+
 ]
 
 const router = new VueRouter({

@@ -71,7 +71,12 @@
           <div class="grid-content grid-contentA ">
 
             <div class="z_index"> <span>
-                <router-link to="/login">登录</router-link>
+                <span v-if="this.$store.state.loginVuex.islogin">
+                  <router-link to="/">已登录</router-link>
+                </span>
+                <span v-else>
+                  <router-link to="/login">登录</router-link>
+                </span>
               </span>
 
               <span>
@@ -184,7 +189,8 @@ export default {
           function wait() {
             return new Promise(function(resolve, reject) {
               document.querySelector(".show").style.height = 0;
-              document.querySelector(".show").style.transition = "all 0.5s ease";
+              document.querySelector(".show").style.transition =
+                "all 0.5s ease";
               console.log(
                 (document.querySelector(".show").style.transition =
                   "all 0.5s ease")
@@ -249,10 +255,11 @@ export default {
     }
   }
 
-@media screen and(max-width:500px){
-/deep/ .setIcon{
-  display: block;
-}}
+  @media screen and(max-width:500px) {
+    /deep/ .setIcon {
+      display: block;
+    }
+  }
 
   .yusi-logo {
     display: block;
@@ -345,8 +352,8 @@ body {
     }
   }
 }
- 
-@media screen and(max-width:500px){
+
+@media screen and(max-width:500px) {
   /deep/ .el-menu-item {
     width: 100%;
 
@@ -354,16 +361,16 @@ body {
       background: rgb(217, 236, 255) !important;
     }
   }
-  /deep/ .show{
-  height: 0; 
-} 
-/deep/ .setIcon{
-  display: block;
-}
-/deep/ .el-row{
-  height: 100%;
-}
-    .el-row {
+  /deep/ .show {
+    height: 0;
+  }
+  /deep/ .setIcon {
+    display: block;
+  }
+  /deep/ .el-row {
+    height: 100%;
+  }
+  .el-row {
     height: 100%;
     .el-col {
       height: 100%;
