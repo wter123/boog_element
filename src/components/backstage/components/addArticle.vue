@@ -1,6 +1,7 @@
 <template>
   <div class="editor">
-    <p class="appendHeader">添加随笔</p>
+    <div class="show" v-html="$store.state.backstageLocal.ArticleData"></div>
+    <p class="appendHeader">添加随笔</p>{{submitStatus}}
     <div
       for=""
       class="padding-6"
@@ -14,14 +15,21 @@
       for=""
       class="padding-6"
     >内容</div>
-    <Editor></Editor>
+    <Editor :submitStatus="submitStatus"></Editor>
     <button @click="submit">提交</button>
+    aaa{{this.ArticleData}}
   </div>
 </template><script>
 import Editor from "@/components/backstage/components/Editor";
 export default {
-      components: {
+  components: {
     Editor
+  },
+  wtach: {
+    "$store.state.backstageLocal.ArticleData": function() {
+      this.ArticleData = this.$store.state.backstageLocal.ArticleData;
+      // console.log(this.$store.state.backstageLocal.ArticleData)
+    }
   },
   data() {
     return {
@@ -29,15 +37,18 @@ export default {
       searchHeader: "",
       editorOption: {
         placeholder: "编辑文章内容"
-      }
+      },
+      ArticleData: ``,
+      submitStatus: false
     };
   },
-    methods: {
+  methods: {
     onEditorChange({ editor, html, text }) {
       this.content = html;
     },
     submit() {
-      console.log(this.content);
+      this.submitStatus=!this.submitStatus;
+      // console.log(this.content);
     }
   }
 };

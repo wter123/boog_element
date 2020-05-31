@@ -47,7 +47,7 @@
         :page-sizes="[10, 20, 30, 40]"
         :page-size="10"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="tableDataVuex.length"
+        :total="this.total"
       >
       </el-pagination>
     </div>
@@ -59,6 +59,9 @@
 import { mapState } from "vuex";
 
 export default {
+    created(){
+    return this.$store.commit("backstageLogTotal",this.tableData.length)
+  },
   watch: {
     dataLength: function() {
       this.showData;
@@ -72,6 +75,10 @@ export default {
     },
     "$store.state.backstageLog.activeRouter": function() {
       this.tableData = eval(this.$store.state.backstageLog.activeRouter);
+      this.$store.commit("backstageLogTotal", this.tableData.length);
+    },
+    "$store.state.backstageLog.total": function() {
+      this.total = this.$store.state.backstageLog.total;
     }
   },
   computed: {
@@ -137,7 +144,8 @@ export default {
       dataChange: 10,
       dataLength: 0,
       tableData: this.$store.state.backstageLog.tableData,
-      search: ""
+      search: "",
+      total: null
     };
   }
 };

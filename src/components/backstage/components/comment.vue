@@ -47,7 +47,7 @@
         :page-sizes="[10, 20, 30, 40]"
         :page-size="10"
         layout="total, sizes, prev, pager, next, jumper"
-        :total=$store.state.backstageLog.tableData.length
+        :total="this.total"
       >
       </el-pagination>
     </div>
@@ -71,10 +71,15 @@ export default {
       // console.log(commentgData);
     },
     "$store.state.backstageComment.activeRouter": function() {
-  
-         this.tableData = eval(this.$store.state.backstageComment.activeRouter)
-     
+      this.tableData = eval(this.$store.state.backstageComment.activeRouter);
+      this.$store.commit("backstageCommentTotal", this.tableData.length);
+    },
+    "$store.state.backstageComment.total": function() {
+      this.total = this.$store.state.backstageComment.total;
     }
+  },
+    created(){
+    return this.$store.commit("backstageCommentTotal",this.tableData.length)
   },
   computed: {
     ...mapState({ tableDataVuex: state => state.backstageComment.tableData }),
@@ -118,7 +123,7 @@ export default {
     handleCurrentChange(val) {
       // console.log(`当前页: ${val}，${this.dataChange}`);
       this.dataLength = val * this.dataChange - this.dataChange;
- 
+
       this.search = "";
     }
   },
@@ -127,7 +132,7 @@ export default {
       contentList: [
         { label: "标题", prop: "title" },
         { label: "作者", prop: "author" },
-        { label: "日期", prop: "date" }, 
+        { label: "日期", prop: "date" }
       ],
 
       currentPage1: 1,
@@ -137,7 +142,8 @@ export default {
       dataChange: 10,
       dataLength: 0,
       tableData: this.$store.state.backstageComment.tableData,
-      search: ""
+      search: "",
+      total: null
     };
   }
 };

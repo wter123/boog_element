@@ -44,6 +44,7 @@ const backstageLog = {
             ]
         },
         activeRouter: "",
+        total: 0,
         tableData: [{
                 title: "日志",
                 publish: "未发布",
@@ -149,7 +150,11 @@ const backstageLog = {
             console.log(tableData);
             state.tableData = tableData;
         },
-
+        backstageLogTotal: (state, n) => {
+            let TempTotal = n
+            state.total = TempTotal
+            console.log(state.total)
+        }
 
     },
     actions: {

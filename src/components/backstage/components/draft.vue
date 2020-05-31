@@ -47,7 +47,7 @@
         :page-sizes="[10, 20, 30, 40]"
         :page-size="10"
         layout="total, sizes, prev, pager, next, jumper"
-        :total=$store.state.backstageDraft.tableData.length
+        :total="this.total"
       >
       </el-pagination>
     </div>
@@ -72,7 +72,11 @@ export default {
     },
     "$store.state.backstageDraft.activeRouter": function() {
       this.tableData = eval(this.$store.state.backstageDraft.activeRouter);
-    }
+      this.$store.commit("backstageDraftTotal",this.tableData.length)
+    },
+     "$store.state.backstageDraft.total":function(){
+   this.total=this.$store.state.backstageDraft.total
+ }
   },
   computed: {
     ...mapState({ tableDataVuex: state => state.backstageDraft.tableData }),
@@ -97,6 +101,7 @@ export default {
       } else {
       }
     }
+    
   },
   methods: {
     handleEdit(index, row) {
@@ -134,8 +139,12 @@ export default {
       dataChange: 10,
       dataLength: 0,
       tableData: this.$store.state.backstageDraft.tableData,
-      search: ""
+      search: "",
+      total:null
     };
+  },
+  created(){
+    return this.$store.commit("backstageDraftTotal",this.tableData.length)
   }
 };
 </script>

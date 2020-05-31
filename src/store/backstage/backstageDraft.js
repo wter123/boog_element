@@ -84,6 +84,7 @@ const backstageDraft = {
 
         },
         activeRouter: "",
+        total: 0,
         tableData: [{
                 title: "随笔",
                 publish: "未发布",
@@ -173,12 +174,6 @@ const backstageDraft = {
                 publish: "未发布",
                 comment: 123,
                 reading: 1234
-            },
-            {
-                title: "2016-05-04",
-                publish: "未发布",
-                comment: 123,
-                reading: 1234
             }
         ]
     },
@@ -189,7 +184,11 @@ const backstageDraft = {
             console.log(tableData);
             state.tableData = tableData;
         },
-
+        backstageDraftTotal: (state, n) => {
+            let TempTotal = n
+            state.total = TempTotal
+            console.log(state.total)
+        }
 
     },
     actions: {

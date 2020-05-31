@@ -13,6 +13,12 @@ const backstageArticle = {
                     publish: "未发布b",
                     comment: 132,
                     reading: 1234
+                },
+                {
+                    title: "2016-05-b",
+                    publish: "未发布b",
+                    comment: 132,
+                    reading: 1234
                 }
             ],
             git1: [{
@@ -190,8 +196,9 @@ const backstageArticle = {
             state.tableData = tableData;
         },
         backstageArticleTotal: (state, n) => {
-
-            state.total = n
+            let TempTotal = n
+            state.total = TempTotal
+            console.log(state.total)
         }
 
 

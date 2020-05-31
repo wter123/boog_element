@@ -70,10 +70,13 @@ export default {
     },
         "$store.state.backstageArticle.activeRouter":function(){
       this.tableData=eval(this.$store.state.backstageArticle.activeRouter)
-      backstageArticleTotal(this.$store.state.backstageArticle.total)
+      console.log(this.tableData.length)
+      this.$store.commit("backstageArticleTotal",this.tableData.length)
     }
     ,
- 
+ "$store.state.backstageArticle.total":function(){
+   this.total=this.$store.state.backstageArticle.total
+ }
   },
   computed: {
     ...mapState({ tableDataVuex: state => state.backstageArticle.tableData }),
@@ -137,8 +140,11 @@ export default {
       tableData: this.$store.state.backstageArticle.tableData,
       search: "",
       temp: "",
-      total:this.$store.state.backstageArticle.total,
+      total:null,
     };
+  },
+    created(){
+    return this.$store.commit("backstageArticleTotal",this.tableData.length)
   }
 };
 </script>

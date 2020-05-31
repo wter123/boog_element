@@ -11,13 +11,13 @@
 
         </div>
         <div
-          v-for="o in 4"
+          v-for="o in options"
           class="text item"
         >
           <router-link
             tag="a"
-            to="/backstage/Home/addArticle"
-          >{{'操作 ' + o }}</router-link>
+            :to="o.router"
+          >{{o.title }}</router-link>
         </div>
       </el-card>
       <el-card class="box-card">
@@ -37,40 +37,44 @@
       </el-card>
     </el-aside>
     <el-main>
-      <el-tabs
-        type="border-card"
-        v-model="activeName"
-        @tab-click="handleClick"
-      >
-        <el-tab-pane
-          label="文章"
-          name="pageArticle"
+      <router-view v-if="this.$route.path=='/backstage/Home/addArticle'"></router-view>
+      <template v-else>
+        <el-tabs
+          type="border-card"
+          v-model="activeName"
+          @tab-click="handleClick"
         >
-          <pageArticle v-if="pageArticle" />
-          <div>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane
-          label="草稿"
-          name="draft"
-        >
-          <draft v-if="draft" />
+          <el-tab-pane
+            label="文章"
+            name="pageArticle"
+          >
+            <pageArticle v-if="pageArticle" />
+            <div>
+            </div>
+          </el-tab-pane>
+          <el-tab-pane
+            label="草稿"
+            name="draft"
+          >
+            <draft v-if="draft" />
 
-        </el-tab-pane>
+          </el-tab-pane>
 
-        <el-tab-pane
-          label="日志"
-          name="log"
-        >
-          <log v-if="log" />
-        </el-tab-pane>
-        <el-tab-pane
-          label="评论"
-          name="comment"
-        >
-          <comment v-if="comment" />
-        </el-tab-pane>
-      </el-tabs>
+          <el-tab-pane
+            label="日志"
+            name="log"
+          >
+            <log v-if="log" />
+          </el-tab-pane>
+          <el-tab-pane
+            label="评论"
+            name="comment"
+          >
+            <comment v-if="comment" />
+          </el-tab-pane>
+        </el-tabs>
+      </template>
+
     </el-main>
   </div>
 </template>
@@ -130,9 +134,15 @@ export default {
     },
     updataTitleData(event) {
       this.activeContent = event.target.innerText;
+      this.$router.push("/backstage/Home")
     }
   },
   watch: {
+    "$route.path": function() {
+      if (this.$route.path == "/backstage/Home/addArticle") {
+        console.log("Vas");
+      }
+    },
     routerActiveE: function() {
       if (this.routerActiveE === "pageArticle") {
         let temp = [];
@@ -162,24 +172,17 @@ export default {
     },
     activeContent: function() {
       if (this.routerActiveE === "pageArticle") {
-        this.content=`this.$store.state.${this.routerActiveE}.titleList['${this.activeContent}']`
-       this.$store.state.backstageArticle.activeRouter=`this.$store.state.backstageArticle.titleList['${this.activeContent}']` 
-      }
-
-      else if (this.routerActiveE === "draft") {
-                this.content=`this.$store.state.${this.routerActiveE}.titleList['${this.activeContent}']`
-       this.$store.state.backstageDraft.activeRouter=`this.$store.state.backstageDraft.titleList['${this.activeContent}']` 
-
-      }
-      else if (this.routerActiveE === "log") {
-                this.content=`this.$store.state.${this.routerActiveE}.titleList['${this.activeContent}']`
-       this.$store.state.backstageLog.activeRouter=`this.$store.state.backstageLog.titleList['${this.activeContent}']` 
-
-      }
-      else if (this.routerActiveE === "comment") {
-                this.content=`this.$store.state.${this.routerActiveE}.titleList['${this.activeContent}']`
-       this.$store.state.backstageComment.activeRouter=`this.$store.state.backstageComment.titleList['${this.activeContent}']` 
-
+        this.content = `this.$store.state.${this.routerActiveE}.titleList['${this.activeContent}']`;
+        this.$store.state.backstageArticle.activeRouter = `this.$store.state.backstageArticle.titleList['${this.activeContent}']`;
+      } else if (this.routerActiveE === "draft") {
+        this.content = `this.$store.state.${this.routerActiveE}.titleList['${this.activeContent}']`;
+        this.$store.state.backstageDraft.activeRouter = `this.$store.state.backstageDraft.titleList['${this.activeContent}']`;
+      } else if (this.routerActiveE === "log") {
+        this.content = `this.$store.state.${this.routerActiveE}.titleList['${this.activeContent}']`;
+        this.$store.state.backstageLog.activeRouter = `this.$store.state.backstageLog.titleList['${this.activeContent}']`;
+      } else if (this.routerActiveE === "comment") {
+        this.content = `this.$store.state.${this.routerActiveE}.titleList['${this.activeContent}']`;
+        this.$store.state.backstageComment.activeRouter = `this.$store.state.backstageComment.titleList['${this.activeContent}']`;
       }
     }
   },
@@ -192,7 +195,11 @@ export default {
       log: false,
       comment: false,
       sortArticle: this.$store.state.backstageArticle.titleList,
-      content:"this.$store.state."+this.routerActiveE+".titleList"
+      content: "this.$store.state." + this.routerActiveE + ".titleList",
+      options: [
+        { title: "编辑文章", router: "/backstage/Home/addArticle" },
+        { title: "回收站", router: "recycleBin" }
+      ]
     };
   }
 };

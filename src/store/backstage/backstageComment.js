@@ -31,6 +31,7 @@ const backstageComment = {
             }]
         },
         activeRouter: "",
+        total: 0,
         tableData: [{
             title: "评论",
             author: "miswang",
@@ -64,7 +65,11 @@ const backstageComment = {
             console.log(tableData);
             state.tableData = tableData;
         },
-
+        backstageCommentTotal: (state, n) => {
+            let TempTotal = n
+            state.total = TempTotal
+            console.log(state.total)
+        }
 
     },
     actions: {
