@@ -4,10 +4,14 @@ module.exports = {
 
     publicPath: "/",
     // baseUrl: "/",
+    pages: undefined,
     // 输出文件目录
     outputDir: 'dist',
     // webpack-dev-server 相关配置
     devServer: {
+        host: "192.168.31.24",
+        port: 8050,
+        disableHostCheck: true,
         open: true, //自动启动浏览器
         proxy: {
             '/api': { //这里最好有一个 /

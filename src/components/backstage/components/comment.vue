@@ -68,7 +68,6 @@ export default {
     },
     tableDataVuex: function(commentgData) {
       this.tableData = commentgData;
-      // console.log(commentgData);
     },
     "$store.state.backstageComment.activeRouter": function() {
       this.tableData = eval(this.$store.state.backstageComment.activeRouter);
@@ -85,9 +84,6 @@ export default {
     ...mapState({ tableDataVuex: state => state.backstageComment.tableData }),
     showData: function() {
       if (this.dataLength + this.dataChange <= this.tableData.length) {
-        // console.log(
-        //   this.tableData[(this.dataLength, this.dataLength + this.dataChange)]
-        // );
         return this.tableData
           .slice(this.dataLength, this.dataLength + this.dataChange)
           .filter(
@@ -110,18 +106,14 @@ export default {
   },
   methods: {
     handleEdit(index, row) {
-      // console.log(index, row);
     },
     handleDelete(index, row) {
-      // console.log(index, row);
     },
     handleSizeChange(val) {
-      // console.log(`每页 ${val} 条`);
       this.dataChange = val;
       this.search = "";
     },
     handleCurrentChange(val) {
-      // console.log(`当前页: ${val}，${this.dataChange}`);
       this.dataLength = val * this.dataChange - this.dataChange;
 
       this.search = "";

@@ -104,7 +104,6 @@ export default {
               password: that.ruleForm.pass
             })
             .then(function(response) {
-              console.log(response.data);
               if (parseInt(response.data.code) === 400) {
                 // 登录失败
                 that.username = "";
@@ -122,10 +121,8 @@ export default {
               }
             })
             .catch(function(error) {
-              console.log("", error);
             });
         } else {
-          console.log("error submit!!");
           return false;
         }
       });

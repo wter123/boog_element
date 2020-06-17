@@ -147,19 +147,16 @@ const backstageLog = {
         tableData: (state, n) => {
             //传入登录状态islogin
             let tableData = JSON.parse(n);
-            console.log(tableData);
             state.tableData = tableData;
         },
         backstageLogTotal: (state, n) => {
             let TempTotal = n
             state.total = TempTotal
-            console.log(state.total)
         }
 
     },
     actions: {
         tableData: ({ commit, state }, n) => {
-            // console.log(state.number, number)
             return commit('tableData', n)
         }
     }

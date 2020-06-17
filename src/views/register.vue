@@ -131,7 +131,6 @@ export default {
     sendCode() {
       let tel = this.ruleForm2.tel;
       if (this.checkMobile(tel)) {
-        console.log(tel);
         let time = 60;
         this.buttonText = "已发送";
         this.isDisabled = true;
@@ -156,25 +155,21 @@ export default {
         if (valid) {
           setTimeout(() => {
             let that = this;
-            console.log(that.username, that.password);
             that.$http
               .post("/api/register", {
                 username: that.ruleForm2.tel,
                 password: that.ruleForm2.pass
               })
               .then(function(response) {
-                console.log(response.data);
                 if (parseInt(response.data.code) === 200) {
                   // sessionStorage.setItem('token', response.data.token);
                   that.$router.push("/login");
                 }
               })
               .catch(function(error) {
-                console.log(error);
               });
           }, 400);
         } else {
-          console.log("error submit!!");
           return false;
         }
       });

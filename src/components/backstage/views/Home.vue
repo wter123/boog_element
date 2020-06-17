@@ -140,7 +140,6 @@ export default {
   watch: {
     "$route.path": function() {
       if (this.$route.path == "/backstage/Home/addArticle") {
-        console.log("Vas");
       }
     },
     routerActiveE: function() {

@@ -52,7 +52,23 @@ const routes = [{
     }
 
 
-
+    , {
+        path: '/1-1',
+        name: '1-1',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../components/amusement/videoNet.vue')
+    }, {
+        path: '/1-2',
+        name: '1-2',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../components/amusement/videoAnalysis.vue')
+    }
 
 
 

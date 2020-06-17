@@ -8,7 +8,6 @@ const loginVuex = {
             //传入登录状态islogin
             let islogin = JSON.parse(n);
             localStorage.setItem('islogin', JSON.stringify(islogin));
-            console.log(islogin);
             state.islogin = islogin;
         },
 
@@ -16,7 +15,6 @@ const loginVuex = {
     },
     actions: {
         login: ({ commit, state }, n) => {
-            // console.log(state.number, number)
             return commit('login', n)
         }
     }

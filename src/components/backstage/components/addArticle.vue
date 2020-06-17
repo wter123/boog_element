@@ -28,7 +28,6 @@ export default {
   wtach: {
     "$store.state.backstageLocal.ArticleData": function() {
       this.ArticleData = this.$store.state.backstageLocal.ArticleData;
-      // console.log(this.$store.state.backstageLocal.ArticleData)
     }
   },
   data() {
@@ -48,7 +47,6 @@ export default {
     },
     submit() {
       this.submitStatus=!this.submitStatus;
-      // console.log(this.content);
     }
   }
 };

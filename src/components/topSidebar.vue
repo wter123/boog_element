@@ -34,7 +34,7 @@
             @select="handleSelect"
           >
             <el-menu-item index="1">
-              <router-link to="page_content">处理中心</router-link>
+              <router-link to="/backstage/Home">处理中心</router-link>
             </el-menu-item>
 
             <el-menu-item index="2">消息中心</el-menu-item>
@@ -143,10 +143,10 @@ export default {
   computed: {},
   methods: {
     handleClick(tab, event) {
-      console.log(tab, event);
+      // console.log(tab, event);
     },
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
     a({ row, rowIndex }) {
       return "floatRight";
@@ -159,7 +159,6 @@ export default {
 
     timeout() {
       setTimeout(function() {
-        console.log("vaa");
         self.timeA = true;
       }, 350);
     },
@@ -177,13 +176,11 @@ export default {
     },
     submit_search() {
       self = this;
-      console.log(self.input);
+      // console.log(self.input);
     },
     getGameList(e) {
-      console.log(e);
     },
     flexible() {
-      console.log(document.documentElement.clientHeight);
       if (document.documentElement.clientWidth < 500) {
         if (this.flexibleStatus) {
           function wait() {
@@ -191,11 +188,6 @@ export default {
               document.querySelector(".show").style.height = 0;
               document.querySelector(".show").style.transition =
                 "all 0.5s ease";
-              console.log(
-                (document.querySelector(".show").style.transition =
-                  "all 0.5s ease")
-              );
-
               resolve();
             });
           }
@@ -203,7 +195,6 @@ export default {
           wait().then(() => {
             document.querySelector(".show").style.visibility = "hidden";
             document.querySelector(".show").opacity = 0;
-            console.log("CCC");
           });
 
           // document.querySelector(".show").classList.remove("show-none")
